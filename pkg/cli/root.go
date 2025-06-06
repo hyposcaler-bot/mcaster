@@ -21,7 +21,7 @@ Examples:
   mcaster receive                        # Receive from default group
   mcaster send -g 224.0.1.1:8080        # Send to specific group
   mcaster receive -i eth0                # Receive via specific interface
-  MULTICAST_GROUP=224.0.1.1:8080 mcaster send  # Use environment variable`,
+  MULTICAST_GROUP=239.23.23.23:2323 mcaster send  # Use environment variable`,
 	}
 )
 
@@ -35,18 +35,23 @@ func init() {
 
 	// Global flags
 	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.mcaster.yaml)")
-	rootCmd.PersistentFlags().StringP("group", "g", "224.1.1.1:9999", "multicast group address:port")
+	rootCmd.PersistentFlags().StringP("group", "g", "239.23.23.23:2323", "multicast group address:port")
 	rootCmd.PersistentFlags().StringP("interface", "i", "", "network interface name")
+	rootCmd.PersistentFlags().IntP("dport", "d", 0, "destination port (overrides port in group address)")
 
 	// Bind flags to viper
 	viper.BindPFlag("group", rootCmd.PersistentFlags().Lookup("group"))
 	viper.BindPFlag("interface", rootCmd.PersistentFlags().Lookup("interface"))
+	viper.BindPFlag("dport", rootCmd.PersistentFlags().Lookup("dport"))
 
 	// Environment variable bindings
 	viper.SetEnvPrefix("MULTICAST")
 	viper.BindEnv("group", "MULTICAST_GROUP")
 	viper.BindEnv("interface", "MULTICAST_INTERFACE")
 	viper.BindEnv("interval", "MULTICAST_INTERVAL")
+	viper.BindEnv("ttl", "MULTICAST_TTL")
+	viper.BindEnv("sport", "MULTICAST_SPORT")
+	viper.BindEnv("dport", "MULTICAST_DPORT")
 
 	// Add subcommands
 	rootCmd.AddCommand(newSendCmd())

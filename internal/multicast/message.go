@@ -21,7 +21,10 @@ func (m *Message) Marshal() ([]byte, error) {
 func UnmarshalMessage(data []byte) (*Message, error) {
 	var msg Message
 	err := json.Unmarshal(data, &msg)
-	return &msg, err
+	if err != nil {
+		return nil, err
+	}
+	return &msg, nil
 }
 
 // Age returns how long ago the message was created

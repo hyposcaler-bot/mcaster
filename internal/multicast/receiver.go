@@ -17,13 +17,23 @@ type Receiver struct {
 }
 
 // NewReceiver creates a new multicast receiver
-func NewReceiver(groupAddr, interfaceName string) (*Receiver, error) {
-	addr, err := net.ResolveUDPAddr("udp", groupAddr)
+func NewReceiver(groupAddr, interfaceName string, dport int) (*Receiver, error) {
+	// Override destination port if specified
+	finalGroupAddr, err := network.OverrideGroupPort(groupAddr, dport)
+	if err != nil {
+		return nil, err
+	}
+
+	addr, err := net.ResolveUDPAddr("udp", finalGroupAddr)
 	if err != nil {
 		return nil, fmt.Errorf("failed to resolve multicast address: %w", err)
 	}
 
-	iface := network.GetInterface(interfaceName)
+	iface, err := network.GetInterface(interfaceName)
+	if err != nil {
+		return nil, err
+	}
+	
 	conn, err := net.ListenMulticastUDP("udp", iface, addr)
 	if err != nil {
 		return nil, fmt.Errorf("failed to listen on multicast address: %w", err)

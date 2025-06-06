@@ -17,12 +17,16 @@ timing information and network delay calculations.`,
   mcaster receive
 
   # Receive from specific group via specific interface
-  mcaster receive -g 224.0.1.1:8080 -i eth0`,
+  mcaster receive -g 224.0.1.1:8080 -i eth0
+
+  # Receive on specific destination port
+  mcaster receive --dport 8080`,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			group := viper.GetString("group")
 			iface := viper.GetString("interface")
+			dport := viper.GetInt("dport")
 
-			receiver, err := multicast.NewReceiver(group, iface)
+			receiver, err := multicast.NewReceiver(group, iface, dport)
 			if err != nil {
 				return err
 			}

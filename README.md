@@ -31,7 +31,7 @@ go install github.com/yourusername/mcaster/cmd/mcaster@latest
 
 ### Send multicast packets
 ```bash
-# Send to default group (224.1.1.1:9999)
+# Send to default group (239.23.23.23:2323)
 ./bin/mcaster send
 
 # Send to specific group with custom interval
@@ -56,13 +56,16 @@ go install github.com/yourusername/mcaster/cmd/mcaster@latest
 
 ### Global Flags
 
-- `-g, --group` - Multicast group address:port (default: "224.1.1.1:9999")
+- `-g, --group` - Multicast group address:port (default: "239.23.23.23:2323")
 - `-i, --interface` - Network interface name (optional)
+- `-d, --dport` - Destination port (overrides port in group address, default: 0 = use group port)
 - `--config` - Config file path (default: $HOME/.mcaster.yaml)
 
 ### Send-specific Flags
 
 - `-t, --interval` - Send interval (default: 1s)
+- `--ttl` - TTL (Time To Live) for multicast packets (default: 1, range: 1-255)
+- `-s, --sport` - Source port for sending packets (default: 0 = random, range: 0-65535)
 
 ### Examples
 
@@ -82,9 +85,20 @@ mcaster receive --interface eth0
 # Fast sending interval
 mcaster send --interval 100ms
 
+# Custom TTL for cross-router testing
+mcaster send --ttl 32
+
+# Send from specific source port
+mcaster send --sport 12345
+
+# Send to specific destination port
+mcaster send --dport 8080
+mcaster receive --dport 8080
+
 # Using environment variables
 MULTICAST_GROUP=224.0.1.1:8080 mcaster send
 MULTICAST_INTERFACE=eth0 mcaster receive
+MULTICAST_TTL=16 MULTICAST_SPORT=12345 MULTICAST_DPORT=8080 mcaster send
 ```
 
 ## Configuration
@@ -94,23 +108,29 @@ MULTICAST_INTERFACE=eth0 mcaster receive
 - `MULTICAST_GROUP` - Multicast group address:port
 - `MULTICAST_INTERFACE` - Network interface name
 - `MULTICAST_INTERVAL` - Send interval (sender only)
+- `MULTICAST_TTL` - TTL for multicast packets (sender only)
+- `MULTICAST_SPORT` - Source port for sending packets (sender only)
+- `MULTICAST_DPORT` - Destination port (overrides group port)
 
 ### Configuration File
 
 Create `~/.mcaster.yaml`:
 
 ```yaml
-group: "224.0.1.1:8080"
+group: "239.23.23.23:2323"
 interface: "eth0"
 interval: "500ms"
+ttl: 16
+sport: 12345
+dport: 8080
 ```
 
 ## Output Format
 
 ### Sender Output
 ```
-🚀 Starting multicast sender to 224.1.1.1:9999
-📡 Sending packets every 1s
+🚀 Starting multicast sender to 239.23.23.23:2323
+📡 Sending packets every 1s (TTL: 1, source port: 54321)
 ⏹️  Press Ctrl+C to stop
 
 📤 [15:04:05.123] Sent packet #1
@@ -119,7 +139,7 @@ interval: "500ms"
 
 ### Receiver Output
 ```
-🎯 Starting multicast receiver on 224.1.1.1:9999
+🎯 Starting multicast receiver on 239.23.23.23:2323
 👂 Waiting for packets...
 
 📥 [15:04:05.125] Received packet #1 from hostname (192.168.1.100:54321) - delay: 2ms
@@ -153,7 +173,3 @@ interval: "500ms"
    # High-frequency sending
    mcaster send -t 10ms
    ```
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
