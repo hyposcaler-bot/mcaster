@@ -3,7 +3,7 @@ package main
 import (
 	"log"
 
-	"github.com/yourusername/mcaster/pkg/cli"
+	"github.com/hyposcaler-bot/mcaster/pkg/cli"
 )
 
 func main() {

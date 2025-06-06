@@ -6,7 +6,7 @@ import (
 	"time"
 
 	"github.com/stretchr/testify/assert"
-	"github.com/yourusername/mcaster/internal/multicast"
+	"github.com/hyposcaler-bot/mcaster/internal/multicast"
 )
 
 // CreateTestMessage creates a test message with the given ID

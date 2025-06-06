@@ -7,7 +7,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/yourusername/mcaster/internal/network"
+	"github.com/hyposcaler-bot/mcaster/internal/network"
 )
 
 // Sender handles multicast packet transmission

@@ -16,7 +16,7 @@ A simple command-line tool for testing multicast connectivity by sending and rec
 ### From Source
 
 ```bash
-git clone https://github.com/yourusername/mcaster.git
+git clone https://github.com/hyposcaler-bot/mcaster.git
 cd mcaster
 make build
 ```
@@ -24,7 +24,7 @@ make build
 ### Using Go Install
 
 ```bash
-go install github.com/yourusername/mcaster/cmd/mcaster@latest
+go install github.com/hyposcaler-bot/mcaster/cmd/mcaster@latest
 ```
 
 ## Quick Start

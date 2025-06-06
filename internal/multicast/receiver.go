@@ -6,7 +6,7 @@ import (
 	"net"
 	"time"
 
-	"github.com/yourusername/mcaster/internal/network"
+	"github.com/hyposcaler-bot/mcaster/internal/network"
 )
 
 // Receiver handles multicast packet reception
