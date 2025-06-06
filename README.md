@@ -9,7 +9,6 @@ A simple command-line tool for testing multicast connectivity by sending and rec
 - 🌐 **Interface binding** for multi-homed systems
 - ⚙️ **Flexible configuration** via CLI flags, environment variables, or config files
 - 📊 **Network delay measurement** for received packets
-- 🎯 **Professional CLI** built with Cobra framework
 
 ## Installation
 
