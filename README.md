@@ -13,7 +13,7 @@ A simple command-line tool for testing multicast connectivity by sending and rec
 
 ## Why not just use \<insert tool that already does this\>?
 
-There are lots of other tools that provide similar functionality. This was largely an experiment in vibe-coding. The entirety of the application was largely written via assistance from Claude Code.
+There are lots of other tools that provide similar functionality. This was largely an experiment in vibe-coding. The entirety of the application was written via assistance from Claude Code.
 
 For a while now I had been meaning to see how far I could get with simple(ish) tooling via vibe-coding. I needed to pick a project to do it with, and I just happened to be in the middle of a multicast refresher so figured why not.
 
