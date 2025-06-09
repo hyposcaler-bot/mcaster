@@ -10,6 +10,19 @@ A simple command-line tool for testing multicast connectivity by sending and rec
 - ⚙️ **Flexible configuration** via CLI flags, environment variables, or config files
 - 📊 **Network delay measurement** for received packets
 
+
+## Why not just use \<insert tool that already does this\>?
+
+There are lots of other tools that provide similar functionality. This was largely an experiment in vibe-coding. The entirety of the application was largely written via assistance from Claude Code.
+
+For a while now I had been meaning to see how far I could get with simple(ish) tooling via vibe-coding. I needed to pick a project to do it with, and I just happened to be in the middle of a multicast refresher so figured why not.
+
+All things considered it worked out pretty well. Getting an MVP to work with Linux and MacOS was pretty straightforward, maybe an hour of work. There was another hour maybe two of me going, "that was too easy", then playing the role of PM armed with feature creep pistols aimed at Claude.  
+
+We also wasted a few additional hours trying to get a cross-platform version that included Windows before giving up.
+
+After some peer review from unaware friends who are more Go-savvy than I, the general consensus seems to be that it's reasonably clean, readable code.
+
 ## Installation
 
 ### From Source
@@ -57,7 +70,7 @@ go install github.com/hyposcaler-bot/mcaster/cmd/mcaster@latest
 
 - `-g, --group` - Multicast group address:port (default: "239.23.23.23:2323")
 - `-i, --interface` - Network interface name (optional)
-- `-d, --dport` - Destination port (overrides port in group address, default: 0 = use group port)
+- `-d, --dport` - Destination port (overrides port in group address; default: 0 = use group port)
 - `--config` - Config file path (default: $HOME/.mcaster.yaml)
 
 ### Send-specific Flags
